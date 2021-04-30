@@ -9,7 +9,6 @@ final String urlBase = global.url;
 
 // Clase que contiene los servicios de la clase login
 class ServiciosLogin {
-  final String url = urlBase + 'funcionesLogin.php';
   final prefs = PreferenciasUsuario();
 
   final String urlLogin = urlBase + 'funcionesLogin.php';
@@ -34,7 +33,8 @@ class ServiciosLogin {
      
     var data = {
       "funcionphp": "iniciarSesion",
-      "datosForm": json.encode(datosForm)
+      "datosForm": json.encode(datosForm),
+      "dispositivo":"app"
     };
     var dio = Dio();
     final encodedData = FormData.fromMap(data);
@@ -69,5 +69,23 @@ class ServiciosLogin {
     
 
     return _aplicaciones;
+  }
+
+
+  Future<Response> enviarRegistro(String cmbSeccion) async {
+    var data = {
+      "funcionphp": "grabarUbicacion",
+      "dispositivo": "movil",
+      "oidUsuario" : prefs.oidUsuario,
+      "oidSeccion" :cmbSeccion
+      
+    };
+    var dio = Dio();
+    final encodedData = FormData.fromMap(data);
+    // make POST request
+    Response response = await dio.post(urlLogin, data: encodedData);
+    
+
+    return response;
   }
 }

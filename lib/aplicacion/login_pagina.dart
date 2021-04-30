@@ -369,7 +369,7 @@ class _LoginPaginaState extends State<LoginPagina> {
                                     fontWeight: FontWeight.w600))),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: ()  {
                       setState(() => loading = true);
                       final serviciosLogin = ServiciosLogin();
 
@@ -394,6 +394,7 @@ class _LoginPaginaState extends State<LoginPagina> {
                             _onAlertButtonsPressed(context,
                                 respuesta['msgError'], "Usuario no válido");
                           } else {
+                            // serviciosLogin.enviarRegistro(prefs.idSeccion);
                             prefs.logeado = true;
                             setState(() => loading = false);
                             Navigator.push(
@@ -687,7 +688,7 @@ class _LoginPaginaState extends State<LoginPagina> {
   // Funcion que llena una lista con objetos de tipo Lista Respuesta ( el cual se utiliza para mostar las listas resultantes de los POST)
   // retorna una lista de objetos de ListaEmpresa
   _llenarCompa(prefValores, prefIndices, seleccion, _resultado, String campo) {
-    final userInfo = Provider.of<InformacionUsuario>(context);
+    final userInfo = Provider.of<InformacionUsuario>(context,listen: false);
     var cont = 0;
     // Recorre los valores y indices devultos por el POST y los agrega a una lista resultado de objetos
     for (var item in prefValores) {
